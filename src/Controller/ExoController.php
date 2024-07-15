@@ -17,11 +17,8 @@ class ExoController extends AbstractController {
 
     #[Route("/test-dog")]
     public function testDog() {
-        $dog = new Dog();
-        $dog->setId(1);
-        $dog->setName("Fido");
-        $dog->setBreed("Corgi");
-        $dog->setBirthdate(new \DateTime());
+        $dog = new Dog("Fido", "Corgi", new \DateTime(), 1);
+        
         return $this->json($dog);
     }
 

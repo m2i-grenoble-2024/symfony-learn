@@ -6,7 +6,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 
 class FirstController extends AbstractController {
-    
     #[Route("/hello")]
     public function hello() {
         return $this->json([

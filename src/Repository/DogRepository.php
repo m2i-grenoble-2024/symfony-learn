@@ -12,7 +12,11 @@ class DogRepository {
 
     public function __construct() {
         //Création d'une connexion à la base de données, pourrait être externaliser dans une classe à part
-        $this->connection = new PDO('mysql:host=localhost;dbname=dam_symfony', 'dev', '1234');
+        $this->connection = new PDO(
+            'mysql:host='.$_ENV['DATABASE_HOST'].';dbname='.$_ENV['DATABASE_NAME'],
+            $_ENV['DATABASE_USER'],
+            $_ENV['DATABASE_PASSWORD']
+            );
     }
     /**
      * Méthode qui va renvoyer la liste des chiens présents dans la base de données

@@ -19,10 +19,11 @@ class DogRepository {
      * @return \App\Entity\Dog[] un tableau d'instance de la classe Dog
      */
     public function findAll(): array {
-        $list = [];
         $query = $this->connection->prepare('SELECT * FROM dog');
         $query->execute();
         $results = $query->fetchAll();
+
+        $list = [];
         foreach($results as $line) {
             $list[] = new Dog(
                 $line['name'],
@@ -31,6 +32,19 @@ class DogRepository {
                 $line['id']
             );
         }
+        //Une manière "différente" de faire exactement la même chose mais avec des fetch au lieu d'un fetchAll
+        /*
+        while($line = $query->fetch()) {
+
+            $list[] = new Dog(
+                $line['name'],
+                $line['breed'],
+                new DateTime($line['birthdate']),
+                $line['id']
+            );
+            
+        }
+        */
         return $list;
     }
 }

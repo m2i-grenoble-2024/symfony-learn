@@ -56,6 +56,26 @@ class DogRepository {
         }
         */
     }
+    /**
+     * Méthode qui renvoie une instance de chien si l'id correspond à un chien de la base de données
+     * Si pas de correspondance, la méthode renvoie null
+     * @param int $id l'id du chien qu'on veut récupérer
+     * @return Dog Instance de chien correspondant à l'id ou null si pas de chien
+     */
+    public function findById(int $id):?Dog {
+        $query = $this->connection->prepare('SELECT * FROM dog WHERE id=:id');
+        $query->bindValue(':id', $id);
+        $query->execute();
+        if($line = $query->fetch()) {
+            return new Dog(
+                $line['name'],
+                $line['breed'],
+                new DateTimeImmutable($line['birthdate']),
+                $line['id']
+            );
+        }
+        return null;
+    }
 
     public function persist(Dog $dog):void {
         $query = $this->connection->prepare('INSERT INTO dog (name,breed,birthdate) VALUES (:name,:breed,:birthdate)');

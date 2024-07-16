@@ -7,6 +7,7 @@ use App\Repository\DogRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/api/dog')]
@@ -22,6 +23,19 @@ class DogController extends AbstractController
         return $this->json(
             $repo->findAll()
         );
+    }
+
+    #[Route('/{id}', methods:'GET')]
+    public function one(int $id): JsonResponse {
+        $repo = new DogRepository();
+        $dog = $repo->findById($id);
+        if(!$dog) {
+            throw new NotFoundHttpException("Dog not found");
+            //ou bien ça, fondamentalement, c'est à peu près la même chose
+            //return $this->json('Dog not found', 404);
+            
+        }
+        return $this->json($dog);
     }
 
     #[Route(methods:'POST')]

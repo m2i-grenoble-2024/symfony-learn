@@ -17,4 +17,4 @@
 2. Créer un dossier src/Repository et dans ce dossier créer une nouvelle classe DogRepository
 3. Dans cette classe, rajouter une propriété \PDO $connection et un __construct qui va assigner à $this->connection une instance de PDO en lui donnant les informations de connexion à la bdd (username,password,nom de la bdd)
 4. Faire une méthode findAll() qui va renvoyer un array et qui va donc faire un prepare d'un select de tous les chiens puis execute puis faire une boucle sur les résultats pour les transformer en instances de la classe Dog
-5. Créer un DogController et dans celui ci créer une route /api/dog qui va utiliser le findAll du repository pour renvoyer en json tous les chiens de la bdd
+5. Créer un DogController et dans celui ci créer une route /api/dog qui va faire une instance du DogRepository et utiliser son findAll pour renvoyer en json tous les chiens de la bdd

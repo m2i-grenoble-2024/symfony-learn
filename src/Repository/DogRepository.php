@@ -56,4 +56,14 @@ class DogRepository {
         }
         */
     }
+
+    public function persist(Dog $dog):void {
+        $query = $this->connection->prepare('INSERT INTO dog (name,breed,birthdate) VALUES (:name,:breed,:birthdate)');
+        $query->bindValue(':name', $dog->getName());
+        $query->bindValue(':breed', $dog->getBreed());
+        $query->bindValue(':birthdate', $dog->getBirthdate()->format('Y-m-d'));
+        $query->execute();
+        //On récupère l'id auto incrémenté pour l'assigner au chien qu'on vient de faire persister
+        $dog->setId($this->connection->lastInsertId());
+    }
 }

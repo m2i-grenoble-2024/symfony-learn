@@ -35,3 +35,10 @@
 6. On fait un return du dog en json, pourquoi pas avec un status code en 201 (created)
 
 **Bonus:** Dans le persist, faire en sorte de récupérer l'id auto incrémenté pour l'assigner à l'instance de dog, comme ça, une fois que le chien a persisté, on aura un chien complet avec id
+
+
+### Récupérer un chien
+1. Dans le DogRepository, rajouter une méthode findById(int $id) qui va faire une requête SQL pour récupérer un chien par son id
+2. Exécuter et faire une instance de chien qu'on return (on peut faire un seul fetch plutôt qu'un fetchAll)
+3. Rajouter une nouvelle route dans le DogController qui sera accessible sur /api/dog/1 ou /api/dog/2 par exemple et qui renverra le chien récupéré via le repository
+4. Faire que si on ne récupère pas de chien, renvoie une erreur 404

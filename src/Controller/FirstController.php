@@ -1,8 +1,13 @@
 <?php
 
 namespace App\Controller;
+use App\Entity\Dog;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
 
 class FirstController extends AbstractController {
@@ -28,5 +33,10 @@ class FirstController extends AbstractController {
     #[Route("/hello/{name}")]
     public function helloSomeone(string $name) {
         return $this->json(["message" => "Coucou ".$name]);
+    }
+
+    #[Route("/example-post", methods:'POST')]
+    public function examplePost(#[MapRequestPayload] Dog $dog): JsonResponse {
+        return $this->json($dog);
     }
 }

@@ -2,14 +2,15 @@
 
 namespace App\Entity;
 use \Datetime;
+use DateTimeImmutable;
 
 class Dog {
     private ?int $id;
     private string $name;
     private string $breed;
-    private DateTime $birthdate;
+    private DateTimeImmutable $birthdate;
 
-    public function __construct(string $name,string $breed, DateTime $birthdate, ?int $id = null ) {
+    public function __construct(string $name,string $breed, DateTimeImmutable $birthdate, ?int $id = null ) {
         $this->id = $id;
         $this->name = $name;
         $this->breed = $breed;
@@ -36,7 +37,7 @@ class Dog {
     public function getBreed(): string {
         return $this->breed;
     }  
-    public function getBirthdate(): DateTime {
+    public function getBirthdate(): DateTimeImmutable {
         return $this->birthdate;
     }      
     public function setId(?int $id){
@@ -48,7 +49,7 @@ class Dog {
     public function setBreed( string $breed){
         $this->breed = $breed;
     }  
-    public function setBirthdate( DateTime $birthdate){
+    public function setBirthdate( DateTimeImmutable $birthdate){
         $this->birthdate = $birthdate;
     }    
 }

@@ -2,11 +2,18 @@
 
 namespace App\Entity;
 use DateTimeImmutable;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Range;
 
 class Dog {
     private ?int $id;
+    #[NotBlank]
+    // #[Length(min: 2)] //On peut avoir autant de validateur qu'on veut sur une même propriété
     private string $name;
+    #[NotBlank]
     private string $breed;
+    #[Range(max:'now')]
     private DateTimeImmutable $birthdate;
 
     public function __construct(string $name,string $breed, DateTimeImmutable $birthdate, ?int $id = null ) {

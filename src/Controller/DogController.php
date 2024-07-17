@@ -58,4 +58,12 @@ class DogController extends AbstractController
         $this->repo->remove($id);
         return $this->json(null, 204);
     }
+    #[Route('/{id}', methods:'PUT')]
+    public function put(int $id, #[MapRequestPayload] Dog $dog):JsonResponse {
+        $this->one($id);
+        //On assigne l'id en paramètre au chien récupéré dans le body pour être bien sûr qu'ils correspondent
+        $dog->setId($id);
+        $this->repo->update($dog);
+        return $this->json($dog);
+    }
 }

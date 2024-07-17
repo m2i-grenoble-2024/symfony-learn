@@ -47,5 +47,5 @@
 1. Faire dans le DogRepository une méthode remove(int $id):void qui va faire une requête SQL de suppression d'un chien par son id
 2. Côté contrôleur, on crée une nouvelle route paramétrée sur /api/dog/{id} spécifiquement pour le DELETE et dans celle ci, on récupère le paramètre id et on le donne à manger à notre remove du repository.
 3. On peut faire en sorte de renvoyer un 204 (success, no content) et éventuellement avant de supprimer d'appeler la méthode one() du contrôleur pour renvoyer un 404 si le chien n'existe pas (ne marche que si on a fait un throw dans la route pour récupérer un seul chien, sinon on peut juste répéter l'appel au findById et le if pour faire un 404)
-4. Retour dans le DogRepository où on rajoute une méthode update(Dog dog):void qui va faire une requête SQL de update d'un chien par son id, qui aura donc 4 placeholder
+4. Retour dans le DogRepository où on rajoute une méthode update(Dog dog):void qui va faire une requête SQL de update d'un chien par son id, qui aura donc 4 placeholders
 5. Dans le contrôleur, on crée une route sur /api/dog/{id} en PUT où on va faire un MapRequestPayload pour récupérer le chien dans le body puis lancer la méthode update. (comme dans le delete, il peut être sympa d'utiliser l'id en paramètre pour faire un $this->one($id) pour vérifier si le chien existe avant de le mettre à jour)

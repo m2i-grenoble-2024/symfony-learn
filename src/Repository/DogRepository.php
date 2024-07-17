@@ -96,4 +96,17 @@ class DogRepository {
         $query->bindValue(':id', $id);
         $query->execute();
     }
+    /**
+     * Met à jour un chien dans la base de données
+     * @param \App\Entity\Dog $dog une instance de chien complète avec toutes ses propriétés, dont l'id
+     * @return void
+     */
+    public function update(Dog $dog):void {
+        $query = $this->connection->prepare('UPDATE dog SET name=:name,breed=:breed,birthdate=:birthdate WHERE id=:id');
+        $query->bindValue(':name', $dog->getName());
+        $query->bindValue(':breed', $dog->getBreed());
+        $query->bindValue(':birthdate', $dog->getBirthdate()->format('Y-m-d'));
+        $query->bindValue(':id',$dog->getId());
+        $query->execute();
+    }
 }

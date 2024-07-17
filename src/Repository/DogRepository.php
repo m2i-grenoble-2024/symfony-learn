@@ -76,7 +76,13 @@ class DogRepository {
         }
         return null;
     }
-
+    /**
+     * Méthode permettant d'ajouter un chien dans la base de données. Il est important d'utiliser les
+     * placeholder (:name/:breed/:birthdate) afin d'éviter les injections SQL
+     * @param \App\Entity\Dog $dog Une instance de chien à faire persister. On lui assignera un id si le
+     * persist fonctionne
+     * @return void
+     */
     public function persist(Dog $dog):void {
         $query = $this->connection->prepare('INSERT INTO dog (name,breed,birthdate) VALUES (:name,:breed,:birthdate)');
         $query->bindValue(':name', $dog->getName());

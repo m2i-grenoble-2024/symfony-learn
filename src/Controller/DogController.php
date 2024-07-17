@@ -40,6 +40,7 @@ class DogController extends AbstractController
 
     #[Route(methods:'POST')]
     public function add(#[MapRequestPayload] Dog $dog): JsonResponse {
+        // if(empty($dog->getName()) || empty($dog->getBreed())) {} //On pourrait faire de la validation sur notre chien ici
         $repo = new DogRepository();
         $repo->persist($dog);
         return $this->json($dog, 201);

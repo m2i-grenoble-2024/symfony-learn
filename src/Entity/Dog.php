@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Entity;
-use \Datetime;
 use DateTimeImmutable;
 
 class Dog {

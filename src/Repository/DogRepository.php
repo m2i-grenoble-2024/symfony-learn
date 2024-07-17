@@ -86,4 +86,14 @@ class DogRepository {
         //On récupère l'id auto incrémenté pour l'assigner au chien qu'on vient de faire persister
         $dog->setId($this->connection->lastInsertId());
     }
+    /**
+     * Méthode qui supprime un chien par son id
+     * @param int $id l'id du chien à supprimer
+     * @return void
+     */
+    public function remove(int $id):void {
+        $query = $this->connection->prepare('DELETE FROM dog WHERE id=:id');
+        $query->bindValue(':id', $id);
+        $query->execute();
+    }
 }

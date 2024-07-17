@@ -13,22 +13,27 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/api/dog')]
 class DogController extends AbstractController
 {
+    /**
+     * Permet de laisser symfony instancier le DogRepository pour toute la classe, on pourra
+     * y accéder dans chaque méthode avec $this->repo
+     */
+    public function __construct(private DogRepository $repo){}
     
     #[Route(methods: 'GET')]
     public function all(): JsonResponse
     {
         //On fait une instance de notre DogRepository et on se sert du findAll pour le renvoyer au
         //format JSON
-        $repo = new DogRepository();
+
         return $this->json(
-            $repo->findAll()
+            $this->repo->findAll()
         );
     }
 
     #[Route('/{id}', methods:'GET')]
     public function one(int $id): JsonResponse {
-        $repo = new DogRepository();
-        $dog = $repo->findById($id);
+        
+        $dog = $this->repo->findById($id);
         if(!$dog) {
             throw new NotFoundHttpException("Dog not found");
             //ou bien ça, fondamentalement, c'est à peu près la même chose
@@ -41,8 +46,16 @@ class DogController extends AbstractController
     #[Route(methods:'POST')]
     public function add(#[MapRequestPayload] Dog $dog): JsonResponse {
         // if(empty($dog->getName()) || empty($dog->getBreed())) {} //On pourrait faire de la validation sur notre chien ici
-        $repo = new DogRepository();
-        $repo->persist($dog);
+
+        $this->repo->persist($dog);
         return $this->json($dog, 201);
+ 
+    }
+    #[Route('/{id}', methods: 'DELETE')]
+    public function delete(int $id): JsonResponse {
+        //On appelle la méthode one définit au dessus pour faire que si le chien n'existe pas, un 404 sera renvoyé
+        $this->one($id);
+        $this->repo->remove($id);
+        return $this->json(null, 204);
     }
 }

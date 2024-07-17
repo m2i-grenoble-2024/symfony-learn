@@ -15,7 +15,7 @@ class DogRepository {
         //On utilise des variables d'environnement pour permettre une modification plus propre des
         //informations de connexion à la base de données (qui changeront selon la machine où tourne l'app)
         $this->connection = new PDO(
-            'mysql:host='.$_ENV['DATABASE_HOST'].';dbname='.$_ENV['DATABASE_NAME'],
+            'mysql:host='.$_ENV['DATABASE_HOST'].';dbname='.$_ENV['DATABASE_NAME'].';port='.$_ENV['DATABASE_PORT'],
             $_ENV['DATABASE_USER'],
             $_ENV['DATABASE_PASSWORD']
         );

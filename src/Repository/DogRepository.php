@@ -87,22 +87,22 @@ class DogRepository {
      * @param int $id l'id du chien à supprimer
      * @return void
      */
-    public function remove(int $id):void {
+    public function remove(int $id):bool {
         $query = $this->connection->prepare('DELETE FROM dog WHERE id=:id');
         $query->bindValue(':id', $id);
-        $query->executeStatement();
+        return $query->executeStatement() == 1;
     }
     /**
      * Met à jour un chien dans la base de données
      * @param \App\Entity\Dog $dog une instance de chien complète avec toutes ses propriétés, dont l'id
      * @return void
      */
-    public function update(Dog $dog):void {
+    public function update(Dog $dog):bool {
         $query = $this->connection->prepare('UPDATE dog SET name=:name,breed=:breed,birthdate=:birthdate WHERE id=:id');
         $query->bindValue(':name', $dog->getName());
         $query->bindValue(':breed', $dog->getBreed());
         $query->bindValue(':birthdate', $dog->getBirthdate()->format('Y-m-d'));
         $query->bindValue(':id',$dog->getId());
-        $query->executeStatement();
+        return $query->executeStatement() == 1;
     }
 }

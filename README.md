@@ -1,10 +1,11 @@
 # Symfony Learn
+Branche qui utilise DBAL (surcouche de PDO faite par Doctrine) plutôt que PDO pour la partie accès au données
 
 ## How To Use
 1. Cloner le projet
 2. Faire un `composer install`
 3. Créer une base de données et exécuter le [database.sql](database.sql) dedans
-4. Créer un fichier `.env.local` et dedans définir les variable `DATABASE_HOST`, `DATABASE_NAME`, `DATABASE_USER` et `DATABASE_PASSWORD` selon votre base de données
+4. Créer un fichier `.env.local` et dedans définir la variable DATABASE_URL avec une string de connexion à la bdd (exemple: `mysql://user:password@localhost:3306/db_name`)
 5. Lancer le projet avec `symfony server:start` ou avec F5
 
 ## Exercices

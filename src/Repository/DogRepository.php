@@ -55,7 +55,7 @@ class DogRepository {
     public function findById(int $id):?Dog {
         $query = $this->connection->prepare('SELECT * FROM dog WHERE id=:id');
         $query->bindValue(':id', $id);
-        $result = $query->execute();
+        $result = $query->executeQuery();
         if($line = $result->fetchAssociative()) {
             return new Dog(
                 $line['name'],

@@ -73,4 +73,22 @@ class DogRepositoryTest extends KernelTestCase {
         //ou bien tester l'id spécifique si on est sûr de notre environnement de test et des data présentes
         $this->assertEquals(5, $dog->getId());
     }
+
+    public function testShouldDeleteDog() {
+        $result = $this->repo->remove(1);
+        $this->assertTrue($result);
+
+        //Test plus précis mais qui du coup dépend d'une autre méthode, donc peut être
+        //un peu moins recommandé
+        $this->assertNull($this->repo->findById(1));
+    }
+
+    public function testShouldUpdateDog() {
+        $result = $this->repo->update(new Dog('updated', 'updated', new \DateTimeImmutable(), 1));
+        $this->assertTrue($result);
+
+        //Test plus précis mais qui du coup dépend d'une autre méthode, donc peut être
+        //un peu moins recommandé
+        $this->assertEquals('updated',$this->repo->findById(1)->getName());
+    }
 }

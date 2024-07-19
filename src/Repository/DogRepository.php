@@ -23,7 +23,7 @@ class DogRepository {
         //plutôt que de renvoyer les données bruts de la base de données, l'idée est d'avoir le reste
         //du code qui ne dépend pas du tout de la base de données
         $list = [];
-        foreach($results->fetchAll() as $line) {
+        foreach($results->fetchAllAssociative() as $line) {
             $list[] = new Dog(
                 $line['name'],
                 $line['breed'],
@@ -56,7 +56,7 @@ class DogRepository {
         $query = $this->connection->prepare('SELECT * FROM dog WHERE id=:id');
         $query->bindValue(':id', $id);
         $result = $query->execute();
-        if($line = $result->fetch()) {
+        if($line = $result->fetchAssociative()) {
             return new Dog(
                 $line['name'],
                 $line['breed'],

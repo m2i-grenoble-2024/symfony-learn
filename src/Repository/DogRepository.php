@@ -78,7 +78,7 @@ class DogRepository {
         $query->bindValue(':name', $dog->getName());
         $query->bindValue(':breed', $dog->getBreed());
         $query->bindValue(':birthdate', $dog->getBirthdate()->format('Y-m-d'));
-        $query->execute();
+        $query->executeStatement();
         //On récupère l'id auto incrémenté pour l'assigner au chien qu'on vient de faire persister
         $dog->setId($this->connection->lastInsertId());
     }
@@ -90,7 +90,7 @@ class DogRepository {
     public function remove(int $id):void {
         $query = $this->connection->prepare('DELETE FROM dog WHERE id=:id');
         $query->bindValue(':id', $id);
-        $query->execute();
+        $query->executeStatement();
     }
     /**
      * Met à jour un chien dans la base de données
@@ -103,6 +103,6 @@ class DogRepository {
         $query->bindValue(':breed', $dog->getBreed());
         $query->bindValue(':birthdate', $dog->getBirthdate()->format('Y-m-d'));
         $query->bindValue(':id',$dog->getId());
-        $query->execute();
+        $query->executeStatement();
     }
 }

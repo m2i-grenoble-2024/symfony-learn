@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 use DateTimeImmutable;
-use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Range;
 

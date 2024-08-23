@@ -73,7 +73,7 @@ class PersonRepository {
      * @return ?Person soit la personne avec ses chiens, soit null si pas de person
      */
     public function findById(int $id):?Person {
-        $query = $this->connection->prepare('SELECT *, person.name person_name, dog.name dog_name FROM person  INNER JOIN dog_person ON dog_person.id_person=person.id INNER JOIN dog ON dog.id=dog_person.id_dog WHERE id=:id');
+        $query = $this->connection->prepare('SELECT *, person.name person_name, dog.name dog_name FROM person  INNER JOIN dog_person ON dog_person.id_person=person.id INNER JOIN dog ON dog.id=dog_person.id_dog WHERE person.id=:id');
         $query->bindValue(':id', $id);
         $query->execute();
         $results = $query->fetchAll();

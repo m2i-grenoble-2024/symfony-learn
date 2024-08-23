@@ -5,6 +5,12 @@ namespace App\Entity;
 class Person {
     private ?int $id;
     private ?string $name;
+    /**
+     * Pas obligé d'avoir cette propriété dans la Person, surtout si on gère avec
+     * des DogRepository::findByPerson et PersonRepository::findByDog, elle n'est
+     * utile que si on fait des requêtes avec jointures dans nos repo
+     * @var array<Dog>
+     */
     private array $dogs = [];
 
     public function getId(): ?int

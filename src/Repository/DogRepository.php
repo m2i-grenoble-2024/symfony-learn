@@ -115,4 +115,29 @@ class DogRepository {
         $query->bindValue(':id',$dog->getId());
         $query->execute();
     }
+
+    /**
+     * Méthode qui va récupérer tous les chiens appartenant à une personne donnée
+     * @param int $idPerson l'id de la personne dont on souhaite les chiens
+     * @return array<Dog> La liste des chiens appartenant à la personne
+     */
+    public function findByPerson(int $idPerson): array {
+        
+        $query = $this->connection->prepare('SELECT * FROM dog  INNER JOIN dog_person ON dog_person.id_dog=dog.id WHERE id_person=:idPerson');
+        $query->bindValue(':idPerson', $idPerson);
+
+        $query->execute();
+        $results = $query->fetchAll();
+        
+        $list = [];
+        foreach($results as $line) {
+            $list[] = new Dog(
+                $line['name'],
+                $line['breed'],
+                new DateTimeImmutable($line['birthdate']),
+                $line['id']
+            );
+        }
+        return $list;
+    }
 }

@@ -42,6 +42,14 @@ class DogController extends AbstractController
         }
         return $this->json($dog);
     }
+
+    #[Route('/person/{idPerson}',methods: 'GET')] 
+    public function byPerson(int $idPerson): JsonResponse
+    {
+        return $this->json(
+            $this->repo->findByPerson($idPerson)
+        );
+    }
     /**
      * Dans les arguments de cette fonction ici, on utilise le #[MapRequestPayload] pour récupérer le
      * contenu du body de la requête (probablement en JSON) et le transformer en une instance de la classe

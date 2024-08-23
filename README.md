@@ -7,6 +7,20 @@
 4. Créer un fichier `.env.local` et dedans définir les variable `DATABASE_HOST`, `DATABASE_NAME`, `DATABASE_USER` et `DATABASE_PASSWORD` selon votre base de données
 5. Lancer le projet avec `symfony server:start` ou avec F5
 
+## Initialiser un projet + Méthode de travail
+Pour commencer un projet Symfony sans utilisé d'ORM (ce qui n'arrivera probablement pas si souvent hors d'un contexte de formation).
+* Si on a le Symfony cli, on fait un `symfony new nom-du-projet`
+* On installe les dépendances nécessaires : `composer req validator cors serializer` (pour faire respectivement la validation des entités, les CORS pour permettre au front de requêter le back et le serializer pour tranformer les entités en json et inversement)
+* On crée une base de données et on crée un fichier database.sql dans lequel on fait nos CREATE TABLE et des INSERT pour avoir une manière de remettre la base de données dans son état initial quand on le souhaite
+* On crée un fichier .env.local dans lequel on met les différentes variables d'environnement (voir le how to use) pour se connecter à la base de données
+
+### On fait quoi quand
+Une fois le projet et la base de données initialisée, généralement on commence par :
+1. Créer les classes entités correspondantes à notre diagramme de classe
+2. Créer des classes Repository pour chaque entité
+3. Créer des contrôleurs pour chaque entité (pas absolument obligatoire ça en vrai, certaines entités n'auront par forcément de contrôleur, ça dépend)
+4. On peut soit travailler par couche, donc faire toutes les méthodes de tous les repositories, et une fois qu'on a terminé, on fait toutes les méthodes de tous les contrôleurs. Soit on peut travailler par tranche et donc faire les méthodes de contrôleur et de repository au fur et à mesure qu'on en a besoin selon la fonctionnalité sur laquelle on est en train de travailler (cette manière de faire peut être un peu moins aliénante et permet d'avoir des fonctionnalités qui marchent au fur et à mesure plutôt que se retrouver à avoir 2-3 couches finies et impecables mais rien qui marche réellement pasqu'il nous manque les autres couches).
+
 ## Exercices
 ### Route Parametrée
 1. Créer un nouveau controller ExoController
